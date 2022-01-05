@@ -4,6 +4,12 @@ public class Curso extends Conteudo{
 
     private int cargaHoraria;
 
+    public Curso(String titulo,String descricacao,int cargaHoraria) {
+        this.setTitulo(titulo);
+        this.setDescricao(descricacao);
+        this.cargaHoraria = cargaHoraria;
+    }
+
     public Curso() {
     }
 

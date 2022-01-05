@@ -2,7 +2,10 @@ package com;
 
 import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
+
+import static com.Conteudo.XP_PADRAO;
 
 public class Dev {
 
@@ -11,15 +14,23 @@ public class Dev {
     private Set<Conteudo> conteudosConcluidos = new LinkedHashSet<>();
 
     public void inscreverBootCamp(Bootcamp bootcamp){
-
+        this.conteudoInscritos.addAll(bootcamp.getConteudos());
+        bootcamp.getDevsInscritos().add(this);
     }
 
     public void progredir(){
+       Optional<Conteudo> x = this.conteudoInscritos.stream().findFirst();
+        if (x.isPresent()){
+            this.conteudosConcluidos.add(x.get());
+            this.conteudoInscritos.remove(x.get());
+        }else {
+            System.err.println("Você não está matriculado em nenhum conteúdo.");
+        }
 
     }
 
-    public void calcularTotalXp(){
-
+    public double calcularTotalXp(){
+        return this.conteudosConcluidos.stream().mapToDouble(Conteudo::calcularXp).sum();
     }
 
     public String getNome() {
